@@ -6,6 +6,19 @@ function App () {
 	const [ people, setPeople ] = useState(data);
 	const [ index, setIndex ] = useState(0);
 
+	useEffect(
+		() => {
+			const lastIndex = people.length - 1;
+			if (index < 0) {
+				setIndex(lastIndex);
+			}
+			if (index > lastIndex) {
+				setIndex(0);
+			}
+		},
+		[ index, people ]
+	);
+
 	return (
 		<section className="section">
 			<div className="title">
@@ -35,10 +48,10 @@ function App () {
 						</article>
 					);
 				})}
-				<button className="prev">
+				<button onClick={() => setIndex(index - 1)} className="prev">
 					<FiChevronLeft />
 				</button>
-				<button className="next">
+				<button onClick={() => setIndex(index + 1)} className="next">
 					<FiChevronRight />
 				</button>
 			</div>
